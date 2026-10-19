@@ -1,11 +1,20 @@
+<!DOCTYPE html>
 <html lang="id">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#9e174d">
+
 <title>Anniversary Muti'a ❤️ Fajar</title>
 
 <style>
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
 
 body {
   margin: 0;
@@ -16,20 +25,32 @@ body {
   min-height: 100vh;
 }
 
-header { padding: 35px 15px 20px; }
+header {
+  padding: 35px 15px 20px;
+}
 
-h1 { font-size: clamp(28px, 6vw, 45px); }
+h1 {
+  font-size: clamp(28px, 6vw, 45px);
+  margin-bottom: 12px;
+}
 
-h2 { color: #ffe1eb; }
+h2 {
+  color: #ffe1eb;
+}
+
+p {
+  line-height: 1.7;
+}
 
 section {
   width: min(92%, 750px);
   margin: 20px auto;
   padding: 22px;
-  background: rgba(255,255,255,.12);
-  border: 1px solid rgba(255,255,255,.25);
+  background: rgba(255, 255, 255, .12);
+  border: 1px solid rgba(255, 255, 255, .25);
   border-radius: 20px;
   box-shadow: 0 8px 25px #30001655;
+  backdrop-filter: blur(8px);
 }
 
 button {
@@ -41,38 +62,131 @@ button {
   border-radius: 30px;
   font-weight: bold;
   cursor: pointer;
+  transition: transform .2s, background .2s;
+  max-width: 100%;
 }
 
-button:hover { background: white; }
+button:hover {
+  background: white;
+  transform: translateY(-2px);
+}
 
-#surat {
-  display: none;
-  line-height: 1.8;
-  text-align: left;
-  white-space: pre-line;
+button:focus-visible {
+  outline: 3px solid white;
+  outline-offset: 3px;
 }
 
 #angka {
-  font-size: 60px;
+  font-size: clamp(54px, 12vw, 76px);
+  font-weight: bold;
+  color: #ffe3ed;
+  text-shadow: 0 0 20px #ffb4d0;
+}
+
+#label {
+  margin-top: 0;
+}
+
+#tanggal {
+  font-size: 14px;
+  color: #ffe1eb;
+}
+
+#surat {
+  display: none;
+  line-height: 1.9;
+  text-align: left;
+  white-space: pre-line;
+  padding: 16px;
+  margin-top: 16px;
+  background: rgba(70, 0, 30, .25);
+  border-radius: 14px;
+  animation: muncul .6s ease;
+}
+
+@keyframes muncul {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Galeri foto dengan rasio portrait 3:4 */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.gallery img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  height: auto;
+  object-fit: cover;
+  border-radius: 14px;
+  border: 2px solid #ffd4e2;
+  background: rgba(255,255,255,.1);
+}
+
+/* Foto ketiga berada di tengah */
+.gallery img:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+  width: calc((100% - 12px) / 2);
+  justify-self: center;
+}
+
+.game-result {
+  min-height: 28px;
   font-weight: bold;
   color: #ffe3ed;
 }
 
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 12px;
+small {
+  display: inline-block;
+  line-height: 1.6;
+  color: #ffe8ef;
 }
 
-.gallery img {
-  width: 100%;
-  height: 220px;
-  object-fit: cover;
-  border-radius: 14px;
-  border: 2px solid #ffd4e2;
+footer {
+  padding: 25px 15px;
+  line-height: 1.8;
 }
 
-footer { padding: 25px; }
+@media (max-width: 380px) {
+  section {
+    padding: 16px;
+  }
+
+  .gallery {
+    gap: 8px;
+  }
+
+  .gallery img:last-child:nth-child(odd) {
+    width: calc((100% - 8px) / 2);
+  }
+
+  button {
+    padding: 11px 14px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+  }
+}
 </style>
 </head>
 
@@ -85,16 +199,28 @@ footer { padding: 25px; }
 
 <section>
   <h2>💕 Anniversary Kita</h2>
+
   <div id="angka">1</div>
   <h3 id="label">Anniversary Ke-1 ❤️</h3>
   <p id="tanggal"></p>
-  <p>Semoga cerita kita terus berlanjut, tahun demi tahun. 💖</p>
+
+  <p>
+    Semoga cerita kita terus berlanjut,
+    tahun demi tahun. 💖
+  </p>
 </section>
 
 <section>
   <h2>💌 Surat Untukmu</h2>
-  <p>Untuk Muti'a Nur Sadida, dari Muhammad Fajar Muthohirin.</p>
-  <button onclick="bukaSurat()">Buka Surat Cinta 💌</button>
+
+  <p>
+    Untuk Muti'a Nur Sadida,
+    dari Muhammad Fajar Muthohirin.
+  </p>
+
+  <button id="tombolSurat" onclick="bukaSurat()">
+    Buka Surat Cinta 💌
+  </button>
 
   <div id="surat">
 Muti'a Nur Sadida ❤️
@@ -113,55 +239,150 @@ untuk kamu, Muti'a Nur Sadida.
 I love you. ❤️
   </div>
 
-  <audio id="musik" src="Anniversary.mp3" loop preload="auto"></audio>
+  <audio
+    id="musik"
+    src="Anniversary.mp3"
+    loop
+    preload="auto">
+  </audio>
+
   <p>
     <button onclick="putarMusik()">▶ Putar Musik</button>
     <button onclick="jedaMusik()">⏸ Jeda Musik</button>
   </p>
-  <small>Musik dimulai saat surat dibuka. Jika browser memblokirnya, tekan tombol Putar Musik.</small>
+
+  <small>
+    Musik akan dicoba diputar saat surat dibuka.
+    Jika browser memblokirnya, tekan tombol Putar Musik.
+  </small>
+
+  <p id="statusMusik" class="game-result" aria-live="polite"></p>
 </section>
 
 <section>
   <h2>📸 Kenangan Kita</h2>
+
   <div class="gallery">
-    <img src="FotoAniv1.jpg" alt="Kenangan pertama" onerror="this.style.display='none'">
-    <img src="FotoAniv2.jpg" alt="Kenangan kedua" onerror="this.style.display='none'">
-    <img src="FotoAniv3.jpg" alt="Kenangan ketiga" onerror="this.style.display='none'">
+    <img
+      src="FotoAniv1.jpg"
+      alt="Kenangan pertama Muti'a dan Fajar"
+      onerror="this.style.display='none'">
+
+    <img
+      src="FotoAniv2.jpg"
+      alt="Kenangan kedua Muti'a dan Fajar"
+      onerror="this.style.display='none'">
+
+    <img
+      src="FotoAniv3.jpg"
+      alt="Kenangan ketiga Muti'a dan Fajar"
+      onerror="this.style.display='none'">
   </div>
+
+  <small>
+    Letakkan ketiga foto di folder yang sama dengan file index.html.
+  </small>
 </section>
 
 <section>
   <h2>🎮 Game 1: Tebak Jawaban Cinta</h2>
+
   <p>Pada tanggal berapa kita mulai pacaran?</p>
-  <button onclick="cekTanggal('14 Februari 2025')">14 Februari 2025</button>
-  <button onclick="cekTanggal('03 Maret 2025')">03 Maret 2025</button>
-  <button onclick="cekTanggal('10 Maret 2025')">10 Maret 2025</button>
-  <p id="hasil1"></p>
+
+  <button onclick="cekTanggal('14 Februari 2025')">
+    14 Februari 2025
+  </button>
+
+  <button onclick="cekTanggal('03 Maret 2025')">
+    03 Maret 2025
+  </button>
+
+  <button onclick="cekTanggal('10 Maret 2025')">
+    10 Maret 2025
+  </button>
+
+  <p id="hasil1" class="game-result" aria-live="polite"></p>
 </section>
 
 <section>
   <h2>💘 Game 2: Seberapa Kenal Kamu?</h2>
+
   <p>Apa yang membuat hubungan kita tetap kuat?</p>
-  <button onclick="jawabCinta(1)">Saling menghargai dan berkomunikasi</button>
-  <button onclick="jawabCinta(2)">Selalu ingin menang sendiri</button>
-  <button onclick="jawabCinta(3)">Tidak mau saling mendengarkan</button>
-  <p id="hasil2"></p>
+
+  <button onclick="jawabCinta(1)">
+    Saling menghargai dan berkomunikasi
+  </button>
+
+  <button onclick="jawabCinta(2)">
+    Selalu ingin menang sendiri
+  </button>
+
+  <button onclick="jawabCinta(3)">
+    Tidak mau saling mendengarkan
+  </button>
+
+  <p id="hasil2" class="game-result" aria-live="polite"></p>
 </section>
 
 <footer>
   Dibuat dengan ❤️ oleh Muhammad Fajar Muthohirin
-  <br>Untuk Muti'a Nur Sadida
+  <br>
+  Untuk Muti'a Nur Sadida
+  <br>
+  <small>03 Maret 2025 · Selamanya dalam kenangan 💕</small>
 </footer>
 
 <script>
-// Waktu anniversary menggunakan waktu lokal perangkat.
-// Untuk hasil sesuai WIB, gunakan zona waktu Asia/Jakarta.
+/*
+  PENGHITUNG ANNIVERSARY WIB
+  Mulai 03 Maret 2025.
+  Anniversary ke-1 ditampilkan mulai 03 Maret 2026 pukul 00.01 WIB.
+  Anniversary ke-2 ditampilkan mulai 03 Maret 2027 pukul 00.01 WIB.
+*/
 
-function anniversaryYears(now) {
-  let completed = now.getFullYear() - 2025;
-  const boundary = new Date(now.getFullYear(), 2, 3, 0, 1, 0);
+function waktuWIB(now = new Date()) {
+  const parts = new Intl.DateTimeFormat("en-GB", {
+    timeZone: "Asia/Jakarta",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hourCycle: "h23"
+  }).formatToParts(now);
 
-  if (now < boundary) completed--;
+  const waktu = {};
+
+  parts.forEach(part => {
+    if (part.type !== "literal") {
+      waktu[part.type] = Number(part.value);
+    }
+  });
+
+  return waktu;
+}
+
+function anniversaryYears(now = new Date()) {
+  const waktu = waktuWIB(now);
+
+  let completed = waktu.year - 2025;
+
+  const sudahTiba =
+    waktu.month > 3 ||
+    (waktu.month === 3 && waktu.day > 3) ||
+    (
+      waktu.month === 3 &&
+      waktu.day === 3 &&
+      (
+        waktu.hour > 0 ||
+        (waktu.hour === 0 && waktu.minute >= 1)
+      )
+    );
+
+  if (!sudahTiba) {
+    completed--;
+  }
 
   return Math.max(1, completed);
 }
@@ -171,53 +392,100 @@ function perbaruiAnniversary() {
   const tahun = anniversaryYears(sekarang);
 
   document.getElementById("angka").textContent = tahun;
+
   document.getElementById("label").textContent =
     "Anniversary Ke-" + tahun + " ❤️";
 
   document.getElementById("tanggal").textContent =
-    "Hari ini: " + sekarang.toLocaleDateString("id-ID", {
+    "Hari ini: " +
+    new Intl.DateTimeFormat("id-ID", {
+      timeZone: "Asia/Jakarta",
       day: "numeric",
       month: "long",
-      year: "numeric",
-      timeZone: "Asia/Jakarta"
-    }) + " • Waktu anniversary: 00.01 WIB";
+      year: "numeric"
+    }).format(sekarang) +
+    " • Perhitungan berdasarkan WIB";
 }
 
-// Periksa setiap detik agar perubahan terjadi saat waktunya tiba.
+// Periksa setiap detik selama halaman terbuka.
 perbaruiAnniversary();
 setInterval(perbaruiAnniversary, 1000);
 
-function bukaSurat() {
-  document.getElementById("surat").style.display = "block";
-  const musik = document.getElementById("musik");
+/*
+  SURAT CINTA DAN MUSIK
+*/
 
-  musik.play().catch(() => {
-    alert("Tekan tombol Putar Musik untuk mulai mendengarkan ❤️");
-  });
+function bukaSurat() {
+  const surat = document.getElementById("surat");
+  const musik = document.getElementById("musik");
+  const status = document.getElementById("statusMusik");
+
+  surat.style.display = "block";
+  document.getElementById("tombolSurat").textContent =
+    "Surat Cinta Terbuka ❤️";
+
+  musik.play()
+    .then(() => {
+      status.textContent = "Musik sedang diputar 🎵";
+    })
+    .catch(() => {
+      status.textContent =
+        "Musik belum bisa diputar. Tekan tombol Putar Musik.";
+    });
 }
 
 function putarMusik() {
-  document.getElementById("musik").play().catch(() => {
-    alert("Musik belum bisa diputar. Periksa file Anniversary.mp3.");
-  });
+  const musik = document.getElementById("musik");
+  const status = document.getElementById("statusMusik");
+
+  musik.play()
+    .then(() => {
+      status.textContent = "Musik sedang diputar 🎵";
+    })
+    .catch(() => {
+      status.textContent =
+        "Musik gagal diputar. Periksa file Anniversary.mp3.";
+    });
 }
 
 function jedaMusik() {
-  document.getElementById("musik").pause();
+  const musik = document.getElementById("musik");
+  musik.pause();
+
+  document.getElementById("statusMusik").textContent =
+    "Musik dijeda ⏸";
 }
+
+/*
+  GAME 1: TEBAK TANGGAL
+*/
 
 function cekTanggal(jawaban) {
-  document.getElementById("hasil1").textContent =
-    jawaban === "03 Maret 2025"
-      ? "Benar! ❤️ Di tanggal itu cerita kita dimulai."
-      : "Belum tepat. Coba ingat lagi tanggal spesial kita 💕";
+  const hasil = document.getElementById("hasil1");
+
+  if (jawaban === "03 Maret 2025") {
+    hasil.textContent =
+      "Benar! ❤️ Di tanggal itu cerita kita dimulai.";
+  } else {
+    hasil.textContent =
+      "Belum tepat. Coba ingat lagi tanggal spesial kita 💕";
+  }
 }
 
+/*
+  GAME 2: PILIH JAWABAN
+*/
+
 function jawabCinta(pilihan) {
-  document.getElementById("hasil2").textContent =
-    pilihan === 1
-      ? "Benar! ❤️ Cinta tumbuh saat kita saling menghargai."
-      : "Coba lagi. Hubungan yang baik membutuhkan saling pengertian 💗";
+  const hasil = document.getElementById("hasil2");
+
+  if (pilihan === 1) {
+    hasil.textContent =
+      "Benar! ❤️ Cinta tumbuh saat kita saling menghargai.";
+  } else {
+    hasil.textContent =
+      "Coba lagi. Hubungan yang baik membutuhkan saling pengertian 💗";
+  }
 }
 </script>
 
