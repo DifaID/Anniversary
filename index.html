@@ -1,0 +1,239 @@
+Website Anniversary Muti'a ❤️ Fajar
+
+Simpan kode HTML di bawah sebagai "index.html". Letakkan file musik "Anniversary.mp3" dan foto "FotoAniv1.jpg", "FotoAniv2.jpg", "FotoAniv3.jpg" di folder yang sama.
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anniversary Muti'a ❤️ Fajar</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  color: #fff;
+  text-align: center;
+  background: linear-gradient(135deg, #31051c, #9e174d, #f16b91);
+  min-height: 100vh;
+}
+
+header { padding: 35px 15px 20px; }
+
+h1 { font-size: clamp(28px, 6vw, 45px); }
+
+h2 { color: #ffe1eb; }
+
+section {
+  width: min(92%, 750px);
+  margin: 20px auto;
+  padding: 22px;
+  background: rgba(255,255,255,.12);
+  border: 1px solid rgba(255,255,255,.25);
+  border-radius: 20px;
+  box-shadow: 0 8px 25px #30001655;
+}
+
+button {
+  background: #ffccdc;
+  color: #750d39;
+  border: none;
+  padding: 12px 18px;
+  margin: 6px;
+  border-radius: 30px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover { background: white; }
+
+#surat {
+  display: none;
+  line-height: 1.8;
+  text-align: left;
+  white-space: pre-line;
+}
+
+#angka {
+  font-size: 60px;
+  font-weight: bold;
+  color: #ffe3ed;
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+}
+
+.gallery img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 14px;
+  border: 2px solid #ffd4e2;
+}
+
+footer { padding: 25px; }
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>💌 Muti'a ❤️ Fajar</h1>
+  <p>Our Love Story Begins on 03 March 2025</p>
+</header>
+
+<section>
+  <h2>💕 Anniversary Kita</h2>
+  <div id="angka">1</div>
+  <h3 id="label">Anniversary Ke-1 ❤️</h3>
+  <p id="tanggal"></p>
+  <p>Semoga cerita kita terus berlanjut, tahun demi tahun. 💖</p>
+</section>
+
+<section>
+  <h2>💌 Surat Untukmu</h2>
+  <p>Untuk Muti'a Nur Sadida, dari Muhammad Fajar Muthohirin.</p>
+  <button onclick="bukaSurat()">Buka Surat Cinta 💌</button>
+
+  <div id="surat">
+Muti'a Nur Sadida ❤️
+
+Sejak 03 Maret 2025, ada cerita indah yang menjadi bagian dari hidupku.
+
+Terima kasih sudah menjadi seseorang yang begitu berarti. Aku tidak bisa menjanjikan bahwa setiap hari akan selalu sempurna, tetapi aku ingin terus belajar menjaga, menghargai, dan menyayangimu dengan tulus.
+
+Semoga setiap tanggal 03 Maret menjadi pengingat bahwa hubungan ini layak dirawat, bukan hanya dirayakan.
+
+Semoga kita selalu diberi kesempatan untuk tumbuh bersama, melewati hari-hari sulit, dan menciptakan lebih banyak kenangan indah.
+
+Dari aku, Muhammad Fajar Muthohirin,
+untuk kamu, Muti'a Nur Sadida.
+
+I love you. ❤️
+  </div>
+
+  <audio id="musik" src="Anniversary.mp3" loop preload="auto"></audio>
+  <p>
+    <button onclick="putarMusik()">▶ Putar Musik</button>
+    <button onclick="jedaMusik()">⏸ Jeda Musik</button>
+  </p>
+  <small>Musik dimulai saat surat dibuka. Jika browser memblokirnya, tekan tombol Putar Musik.</small>
+</section>
+
+<section>
+  <h2>📸 Kenangan Kita</h2>
+  <div class="gallery">
+    <img src="FotoAniv1.jpg" alt="Kenangan pertama" onerror="this.style.display='none'">
+    <img src="FotoAniv2.jpg" alt="Kenangan kedua" onerror="this.style.display='none'">
+    <img src="FotoAniv3.jpg" alt="Kenangan ketiga" onerror="this.style.display='none'">
+  </div>
+</section>
+
+<section>
+  <h2>🎮 Game 1: Tebak Jawaban Cinta</h2>
+  <p>Pada tanggal berapa kita mulai pacaran?</p>
+  <button onclick="cekTanggal('14 Februari 2025')">14 Februari 2025</button>
+  <button onclick="cekTanggal('03 Maret 2025')">03 Maret 2025</button>
+  <button onclick="cekTanggal('10 Maret 2025')">10 Maret 2025</button>
+  <p id="hasil1"></p>
+</section>
+
+<section>
+  <h2>💘 Game 2: Seberapa Kenal Kamu?</h2>
+  <p>Apa yang membuat hubungan kita tetap kuat?</p>
+  <button onclick="jawabCinta(1)">Saling menghargai dan berkomunikasi</button>
+  <button onclick="jawabCinta(2)">Selalu ingin menang sendiri</button>
+  <button onclick="jawabCinta(3)">Tidak mau saling mendengarkan</button>
+  <p id="hasil2"></p>
+</section>
+
+<footer>
+  Dibuat dengan ❤️ oleh Muhammad Fajar Muthohirin
+  <br>Untuk Muti'a Nur Sadida
+</footer>
+
+<script>
+// Waktu anniversary menggunakan waktu lokal perangkat.
+// Untuk hasil sesuai WIB, gunakan zona waktu Asia/Jakarta.
+
+function anniversaryYears(now) {
+  let completed = now.getFullYear() - 2025;
+  const boundary = new Date(now.getFullYear(), 2, 3, 0, 1, 0);
+
+  if (now < boundary) completed--;
+
+  return Math.max(1, completed);
+}
+
+function perbaruiAnniversary() {
+  const sekarang = new Date();
+  const tahun = anniversaryYears(sekarang);
+
+  document.getElementById("angka").textContent = tahun;
+  document.getElementById("label").textContent =
+    "Anniversary Ke-" + tahun + " ❤️";
+
+  document.getElementById("tanggal").textContent =
+    "Hari ini: " + sekarang.toLocaleDateString("id-ID", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+      timeZone: "Asia/Jakarta"
+    }) + " • Waktu anniversary: 00.01 WIB";
+}
+
+// Periksa setiap detik agar perubahan terjadi saat waktunya tiba.
+perbaruiAnniversary();
+setInterval(perbaruiAnniversary, 1000);
+
+function bukaSurat() {
+  document.getElementById("surat").style.display = "block";
+  const musik = document.getElementById("musik");
+
+  musik.play().catch(() => {
+    alert("Tekan tombol Putar Musik untuk mulai mendengarkan ❤️");
+  });
+}
+
+function putarMusik() {
+  document.getElementById("musik").play().catch(() => {
+    alert("Musik belum bisa diputar. Periksa file Anniversary.mp3.");
+  });
+}
+
+function jedaMusik() {
+  document.getElementById("musik").pause();
+}
+
+function cekTanggal(jawaban) {
+  document.getElementById("hasil1").textContent =
+    jawaban === "03 Maret 2025"
+      ? "Benar! ❤️ Di tanggal itu cerita kita dimulai."
+      : "Belum tepat. Coba ingat lagi tanggal spesial kita 💕";
+}
+
+function jawabCinta(pilihan) {
+  document.getElementById("hasil2").textContent =
+    pilihan === 1
+      ? "Benar! ❤️ Cinta tumbuh saat kita saling menghargai."
+      : "Coba lagi. Hubungan yang baik membutuhkan saling pengertian 💗";
+}
+</script>
+
+</body>
+</html>
+
+Cara menjalankannya
+
+1. Simpan kode di atas dengan nama "index.html".
+2. Letakkan "Anniversary.mp3" dan ketiga foto di folder yang sama.
+3. Buka "index.html" di browser.
+4. Untuk menjadikannya website yang bisa dibuka melalui tautan dari mana saja, unggah foldernya ke layanan hosting web.
+
+Penting: Perhitungan memakai waktu lokal perangkat. Agar pergantian terjadi tepat pukul 00.01 WIB, perangkat harus menggunakan zona waktu Jakarta. Browser juga tidak mengizinkan semua situs memutar musik otomatis tanpa interaksi, jadi musik dicoba diputar ketika tombol surat ditekan.
